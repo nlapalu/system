@@ -161,8 +161,8 @@ then
 	log "error" "dumps deletion error for ${dbname}, missing previous dumps"
 else
 	old_dump=`head -n 1 ${tmpfile}`
-log "info" "removing old dump: ${old_dump}"
-rm "${old_dump}"
+	log "info" "removing old dump: ${old_dump}"
+	rm "${old_dump}"
 fi
 
 log "info" "attachment files rsync started"
