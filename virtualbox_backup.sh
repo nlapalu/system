@@ -7,7 +7,8 @@ shutdown, export and reboot. Two backups are kept and the oldest is deleted \
 at each run. For an automatically execution, use this script in a crontab. \
 Below an example for a weekly backup:
 
-cron ...
+1 13   * * 3   user virtualbox_backup.sh -v 5 -d /opt/vbox/backups/ "my VM1" \
+"my VM2" | mail -s "virtualbox backup" foo@bar.fr
 
 usage: virtualbox_backups.sh [options] vm1 \"my vm2\" [...]
 
@@ -37,9 +38,6 @@ function log {
 		echo "###" "message: ${2}" "###"
 	fi
 }
-
-backup_dir=""
-vm_list=""
 
 ## set options
 while getopts "hd:v:" opt
@@ -172,7 +170,6 @@ do
 	if [ "${nb_clones}" -lt 3 ]
 	then
 		log "error" "backups deletion error for ${vm}, missing previous clones"
-		exit 1
 	else
 		old_vm=`head -n 1 ${tmpfile}`
 		log "info" "removing old clone: ${old_vm}"
