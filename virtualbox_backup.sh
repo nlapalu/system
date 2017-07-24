@@ -136,7 +136,7 @@ do
 	if [ $vm_status == 'running' ]
 	then
 		log "info" "vm ${vm} is shutting down"
-		VBoxManage controlvm "${vm}" acpipowerbutton
+		VBoxManage controlvm "${vm}" poweroff
 		while [ ${vm_status} != 'poweroff' ]
 		do
 			log "info" "waiting for ${vm} shutdown"
