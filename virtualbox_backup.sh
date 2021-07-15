@@ -147,6 +147,9 @@ do
 	elif [ $vm_status == 'poweroff' ]
 	then
 		log "info" "vm ${vm} has already been shutdown"
+	elif [ $vm_status == 'aborted' ]
+	then
+		log "info" "vm ${vm} has been aborted"
 	else
 		log "error" "vm ${vm} status unknown or untractable"
 		exit 1
@@ -159,7 +162,7 @@ do
 
 	# reboot the vm
 	log "info" "${vm} is starting"
-	VBoxManage startvm "${vm}" --type headless
+	nohup VBoxHeadless --startvm "${vm}" &
 
 	# delete the oldest clone
 	tmpfile=$(mktemp)
